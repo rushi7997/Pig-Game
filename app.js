@@ -9,13 +9,22 @@ GAME RULES:
 
 */
 
-var score, roundScore, activePlayer, gamePlaying;
+var score, roundScore, activePlayer, gamePlaying, prevDice;
 
 init();
 
 document.querySelector('.btn-roll').addEventListener('click', () => {
     if (gamePlaying) {
         var dice = Math.floor(Math.random() * 6 + 1);
+        console.log(dice);
+        console.log(prevDice);
+        if (dice === 6 && prevDice === 6) {
+            console.log("hahahahah");
+            score[activePlayer] = 0;
+            document.getElementById('score-' + activePlayer).textContent = '0';
+            nextPlayer();
+        }
+        prevDice = dice;
         var tempDice = document.querySelector('.dice');
         tempDice.style.display = 'block';
         tempDice.src = 'dice-' + dice + '.png';
@@ -66,6 +75,7 @@ function init() {
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true;
+    prevDice = 0;
 
     document.querySelector('.dice').style.display = 'none';
 
